@@ -1,4 +1,5 @@
 import simpleLogger from 'simple-node-logger';
+import Joi from 'joi';
 import * as javascriptChecks from './javascriptChecks.js';
 import { validateRequest } from '../utils/index.js';
 import { repositorySchema } from '../constants.js';
@@ -12,6 +13,12 @@ const checkByLanguage = {
   },
 };
 
+export const checkResponseSchema = Joi.object({
+  check: Joi.string().required(),
+  score: Joi.number().min(0).max(100).required(),
+  description: Joi.string().required(),
+}).required();
+
 async function performChecksByLanguage(repository) {
   const {
     name, language, path, htmlUrl,
@@ -20,7 +27,9 @@ async function performChecksByLanguage(repository) {
   const allChecks = checkByLanguage[language.toLowerCase()];
   const results = await Promise.all(Object.entries(allChecks).map(async ([checkName, checkImplementation]) => {
     logger.info(`Performing check ${checkName} on repository ${name}`);
-    return checkImplementation(repository);
+    const checkResponse = await checkImplementation(repository);
+    validateRequest({ joiSchema: checkResponseSchema, params: checkResponse });
+    return checkResponse;
   }));
   return {
     name, language, path, htmlUrl, results,
