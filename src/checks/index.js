@@ -13,7 +13,9 @@ const checkByLanguage = {
 };
 
 async function performChecksByLanguage(repository) {
-  const { name, language, path } = validateRequest({ joiSchema: repositorySchema, params: repository });
+  const {
+    name, language, path, htmlUrl,
+  } = validateRequest({ joiSchema: repositorySchema, params: repository });
 
   const allChecks = checkByLanguage[language.toLowerCase()];
   const results = await Promise.all(Object.entries(allChecks).map(async ([checkName, checkImplementation]) => {
@@ -21,7 +23,7 @@ async function performChecksByLanguage(repository) {
     return checkImplementation(repository);
   }));
   return {
-    name, language, path, results,
+    name, language, path, htmlUrl, results,
   };
 }
 

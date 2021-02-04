@@ -20,8 +20,10 @@ export async function getPopularRepositories(params) {
   const { count, page, requestedLanguage } = validateRequest({ joiSchema, params });
 
   const rawRepositories = await getPopular({ count, page, requestedLanguage });
-  return rawRepositories.items.map(({ name, clone_url: cloneUrl, language }) => ({
-    name, cloneUrl, language, path: `./repositories/${name}`,
+  return rawRepositories.items.map(({
+    name, clone_url: cloneUrl, html_url: htmlUrl, language,
+  }) => ({
+    name, cloneUrl, htmlUrl, language, path: `./repositories/${name}`,
   }));
 }
 

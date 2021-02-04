@@ -5,6 +5,7 @@ export const supportedLanguages = ['javascript'];
 export const repositorySchema = Joi.object({
   name: Joi.string().trim().required(),
   path: Joi.string().trim().required(),
-  cloneUrl: Joi.string().trim().required(),
+  cloneUrl: Joi.string().trim().uri().required(),
+  htmlUrl: Joi.string().trim().uri().required(),
   language: Joi.string().lowercase().valid(...supportedLanguages).required(),
 }).required();
