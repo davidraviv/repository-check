@@ -7,13 +7,15 @@ const exec = util.promisify(childExec);
 const logger = simpleLogger.createSimpleLogger({ level: 'debug' });
 
 export async function execShell(command) {
-  const { stdout, stderr } = await exec(command);
-  if (stderr) {
-    logger.error(`stderr: ${stderr}`);
-    throw new Error(stderr);
+  let stdout;
+  let stderr;
+  let exceptionMessage;
+  try {
+    ({ stdout, stderr } = await exec(command));
+  } catch (e) {
+    exceptionMessage = e.message;
   }
-  logger.debug(`exec stdout for "${command}": ${stdout}`);
-  return stdout;
+  return exceptionMessage || stdout || stderr;
 }
 
 export async function spawnShell({ command, options }) {
