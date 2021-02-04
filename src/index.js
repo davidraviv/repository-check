@@ -12,7 +12,6 @@ const main = async () => {
     logger.info('Report is ready:', JSON.stringify(report, null, 2));
   } catch (e) {
     logger.error(`Caught exception: ${e.message} `, e);
-    // process.exit(1);
   }
 };
 

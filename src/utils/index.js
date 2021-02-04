@@ -18,8 +18,6 @@ export async function execShell(command) {
 
 export async function spawnShell({ command, options }) {
   try {
-    console.log('@@@ command', command);
-    console.log('@@@ options', options);
     const child = spawn(command, options);
 
     child.on('exit', (code) => {
@@ -37,7 +35,7 @@ export async function spawnShell({ command, options }) {
     const output = [];
     for await (const data of child.stdout) {
       output.push(data);
-      console.log(`@@@ stdout from the child: ${data}`);
+      logger.debug(`stdout from the child: ${data}`);
     }
     return output.join(' ');
   } catch (e) {
