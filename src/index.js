@@ -6,8 +6,8 @@ const logger = simpleLogger.createSimpleLogger();
 
 const main = async () => {
   try {
-    logger.info('Getting most popular repositories...');
-    const popularRepositories = await getPopularRepositories({ count: 2, requestedLanguage: 'javascript' });
+    logger.info('Getting relatively popular repositories...');
+    const popularRepositories = await getPopularRepositories({ count: 2, page: 50, requestedLanguage: 'javascript' });
     const report = await createReport(popularRepositories);
     logger.info('Report is ready:', JSON.stringify(report, null, 2));
   } catch (e) {

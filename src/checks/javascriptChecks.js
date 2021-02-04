@@ -21,7 +21,7 @@ function parseDependencyResponse(response) {
 
 export async function dependencyCheck(repository) {
   const { path } = repository;
-  const response = await execShell(`./node_modules/dependency-check/cli.js ${path} src/index.js --unused`);
+  const response = await execShell(`./node_modules/dependency-check/cli.js ${path} --unused`);
   const { score, description } = parseDependencyResponse(response);
   return {
     check: 'dependency-check', score, description,
