@@ -33,6 +33,7 @@ export async function spawnShell({ command, options }) {
     });
 
     const output = [];
+    // eslint-disable-next-line no-restricted-syntax
     for await (const data of child.stdout) {
       output.push(data);
       logger.debug(`stdout from the child: ${data}`);
