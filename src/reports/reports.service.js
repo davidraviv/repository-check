@@ -15,6 +15,7 @@ export async function createReport(repositories) {
   logger.info(`Creating report for ${repositories.length} repositories`);
   const report = await Promise.all(repositories.map(async (repository) => {
     await cloneRepository(repository);
+    // TODO david should call checkRepository which will call checks, so the check results are persistent in the repository dal
     const checkResults = await checks(repository);
     // await execShell(`rm -rf ${repositoryPath}`);
     return checkResults;

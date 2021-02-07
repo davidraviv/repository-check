@@ -4,6 +4,8 @@ import { createReport } from './reports/reports.service.js';
 
 const logger = simpleLogger.createSimpleLogger();
 
+// TODO david this is a temp transport layar.
+// TODO david if it stays, need to add yargs and accept params: language, count, page
 const main = async () => {
   try {
     logger.info('Getting relatively popular repositories...');

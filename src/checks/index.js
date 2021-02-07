@@ -19,6 +19,7 @@ export const checkResponseSchema = Joi.object({
   description: Joi.string().required(),
 }).required();
 
+// TODO david should return only the results. the rest should be added in the calling function in the repositories module
 async function performChecksByLanguage(repository) {
   const {
     name, language, path, htmlUrl,

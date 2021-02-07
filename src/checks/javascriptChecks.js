@@ -19,6 +19,8 @@ function parseDependencyResponse(response) {
   return { score, description };
 }
 
+// TODO david handle a missing "main" entry in the package.json.
+// TODO david handle other stuff that prevents the dependency-check like corrupted version in the package.json.
 export async function dependencyCheck(repository) {
   const { path } = repository;
   const response = await execShell(`./node_modules/dependency-check/cli.js ${path} --unused`);

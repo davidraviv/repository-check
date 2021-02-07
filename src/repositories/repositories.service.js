@@ -43,3 +43,5 @@ export async function deleteRepository(repository) {
   const { path } = validateRequest({ joiSchema: repositorySchema, params: repository });
   await execShell(`rm -rf ${path}`);
 }
+
+// TODO david add function checkRepository(repository)
